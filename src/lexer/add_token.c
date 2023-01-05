@@ -1,0 +1,149 @@
+#include "lexer.h"
+
+int ft_add_word(t_data *data, int i)
+{
+    char *command;
+
+    command = ft_substr(data->command, i, ft_word_len(data->command, i));
+    i += ft_word_len(data->command, i);
+    data->token_list = ft_add_token_back(data->token_list, command, WORD);
+    return (i);
+}
+
+int ft_add_field(t_data *data, int i)
+{
+    char *command;
+    int len;
+    int begin;
+    char c;
+
+    begin = i;
+    len = 0;
+
+    while (data->command[i])
+    {
+        if (data->command[i] == '"' || data->command[i] == '\'')
+        {
+            c = data->command[i];
+            i++;
+            len++;
+            while (data->command[i] && data->command[i] != c)
+            {
+                i++;
+                len++;
+            }
+        }
+        else
+            break;
+    }
+    command = ft_substr(data->command, begin, len);
+    if (c == '"')
+        data->token_list = ft_add_token_back(data->token_list, command, FIELD);
+    else if (c == '\'')
+        data->token_list = ft_add_token_back(data->token_list, command, EXP_FIELD);
+
+    return (i);
+}
+
+int ft_add_redirection_in(t_data *data, int i)
+{
+    char *command;
+    int len;
+    int begin;
+
+    begin = i;
+    len = 0;
+    command = NULL;
+    while (data->command[i] && ft_is_redirection_in(data->command[i]))
+    {
+        i++;
+        len++;
+    }
+
+    command = ft_substr(data->command, begin, len);
+
+    if (len == 1)
+    {
+        data->token_list = ft_add_token_back(data->token_list, command, REDIRECT_IN);
+    }
+    else if (len == 2)
+    {   
+        data->token_list = ft_add_token_back(data->token_list, command, REDIRECT_INSOURCE);
+    }
+    else
+        ft_print_error("Invalid redirections");
+    return (i);
+}
+
+int ft_add_redirection_out(t_data *data, int i)
+{
+    char *command;
+    int len;
+    int begin;
+
+    begin = i;
+    len = 0;
+    command = NULL;
+    while (data->command[i] && ft_is_redirection_out(data->command[i]))
+    {
+        i++;
+        len++;
+    }
+    command = ft_substr(data->command, begin, len);
+
+    if (len == 1)
+    {
+        data->token_list = ft_add_token_back(data->token_list, command, REDIRECT_OUT);
+    }
+    else if (len == 2)
+    {
+        data->token_list = ft_add_token_back(data->token_list, command, REDIRECT_APPEND);
+    }
+    else
+        ft_print_error("Invalid redirections");
+    return (i);
+}
+
+int ft_add_pipe(t_data *data, int i)
+{
+    int begin;
+    char *command;
+    int len;
+
+    begin = i;
+    command = NULL;
+    len = 0;
+    while (data->command[i] && data->command[i] == '|')
+    {
+        i++;
+        len++;
+    }
+    command = ft_substr(data->command, begin, len);
+    if (len == 1)
+        data->token_list = ft_add_token_back(data->token_list, command, PIPE);
+    else
+        ft_print_error("Invalid pipes");
+    return (i);
+}
+
+int ft_add_semicolon(t_data *data, int i)
+{
+    int begin;
+    int len;
+    char *command;
+
+    begin = i;
+    len = 0;
+    command = NULL;
+    while (data->command[i] && data->command[i] == ';')
+    {
+        i++;
+        len++;
+    }
+    command = ft_substr(data->command, begin, len);
+    if (len == 1)
+        data->token_list = ft_add_token_back(data->token_list, command, SEMICOLON);
+    else
+        ft_print_error("Invalid semicolons");
+    return (i);
+}
