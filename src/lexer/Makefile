@@ -8,7 +8,7 @@ SRCS = $(wildcard *.c)
 
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -lreadline
 
 RM = rm -f
 

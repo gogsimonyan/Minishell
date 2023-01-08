@@ -1,37 +1,43 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <readline/history.h>
+#include <readline/readline.h>
 
 typedef struct s_token
 {
-    char *value;
-    int type;
-    struct s_token *next;
-    struct s_token *prev;
+	char *value;
+	int type;
+	struct s_token *next;
+	struct s_token *prev;
 } t_token;
 
 typedef struct s_data
 {
-    t_token *token_list;
-    char *command;
+	t_token *token_list;
+	char *command;
+	int error_status;
 } t_data;
 
-#define SEP  1
-#define WORD 2
-#define FIELD 3
-#define EXP_FIELD 4
-#define REDIRECT_OUT 5  // >
-#define REDIRECT_IN 6  // <
-#define REDIRECT_APPEND 7 // >>
-#define REDIRECT_INSOURCE 8 // <<
-#define PIPE 9
-#define SEMICOLON 10
+typedef enum
+{
+	SEP = 1,
+	WORD,
+	FIELD,
+	EXP_FIELD,
+	REDIRECT_OUT,  // >
+	REDIRECT_IN,  // <
+	REDIRECT_APPEND, // >>
+	REDIRECT_INSOURCE, // <<
+	PIPE,
+	SEMICOLON
+} defines;
 
 int ft_strlen(char *str);
 size_t ft_strlcpy(char *dest, char *src, size_t size);
 char *ft_strtrim(char *str);
 char *ft_substr(char *str, int start, size_t len);
-int ft_print_error(char *error_str);
+int ft_print_error(t_data *data, char *error_str);
 int ft_word_len(char *word, int i);
 int ft_isspace(char c);
 int ft_is_redirection_in(char c);
