@@ -59,7 +59,6 @@ char *ft_substr(char *str, int start, size_t len)
 int ft_word_len(char *word, int i)
 {
 	int len;
-	char c;
 
 	len = 0;
 	while (word[i] && ft_is_word(word[i]))
