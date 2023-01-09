@@ -1,4 +1,4 @@
-#include "lexer.h"
+#include "../minishell.h"
 
 t_token *ft_add_new_token(char *str, int type)
 {

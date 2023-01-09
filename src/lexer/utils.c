@@ -1,4 +1,4 @@
-#include "lexer.h"
+#include "../minishell.h"
 
 int ft_strlen(char *str)
 {
@@ -75,4 +75,22 @@ int ft_print_error(t_data *data, char * error_str)
 	data->error_status = 1;
 	printf("%s\n", error_str);
 	return(0);
+}
+
+char *ft_strdup(char *s1)
+{
+	size_t i;
+	char *str;
+
+	i = 0;
+	str = (char *)malloc((ft_strlen(s1) + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

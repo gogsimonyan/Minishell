@@ -1,11 +1,18 @@
-#include "lexer.h"
-
+#include "minishell.h"
 
 int main(int argc, char **argv)
 {
 	t_data data;
+	char **env;
 
 	data.error_status = 0;
+
+	env = malloc(sizeof(char *) * 3);
+	env[0] = ft_strdup("PWD=/Users/gsimonya/Desktop/minishell");
+	env[1] = ft_strdup("_=./minishell");
+	env[2] = NULL;
+
+	ft_create_env_list(&data, env);
 
 	while (1)
 	{

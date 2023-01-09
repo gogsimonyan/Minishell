@@ -4,7 +4,7 @@ NAME = minishell
 
 CC	=	gcc
 
-SRCS = $(wildcard *.c)
+SRCS =	$(wildcard src/*.c)
 
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 

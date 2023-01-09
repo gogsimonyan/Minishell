@@ -1,4 +1,4 @@
-#include "lexer.h"
+#include "../minishell.h"
 
 void ft_lexer(t_data *data)
 {
@@ -7,7 +7,7 @@ void ft_lexer(t_data *data)
 	i = 0;
 	while (data->command[i])
 	{
-		while (ft_isspace(data->command[i]))
+		while (ft_is_space(data->command[i]))
 			i++;
 		if (ft_is_word(data->command[i]))
 			i = ft_add_word(data, i);
@@ -19,7 +19,5 @@ void ft_lexer(t_data *data)
 			 i = ft_add_redirection_out(data, i);
 		if (data->command[i] == '|')
 			 i = ft_add_pipe(data, i);
-		if (data->command[i] == ';')
-			 i = ft_add_semicolon(data, i);
 	}
 }

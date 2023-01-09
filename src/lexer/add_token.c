@@ -1,4 +1,4 @@
-#include "lexer.h"
+#include "../minishell.h"
 
 int ft_add_word(t_data *data, int i)
 {
@@ -123,27 +123,5 @@ int ft_add_pipe(t_data *data, int i)
 		data->token_list = ft_add_token_back(data->token_list, command, PIPE);
 	else
 		ft_print_error(data, "Invalid pipes");
-	return (i);
-}
-
-int ft_add_semicolon(t_data *data, int i)
-{
-	int begin;
-	int len;
-	char *command;
-
-	begin = i;
-	len = 0;
-	command = NULL;
-	while (data->command[i] && data->command[i] == ';')
-	{
-		i++;
-		len++;
-	}
-	command = ft_substr(data->command, begin, len);
-	if (len == 1)
-		data->token_list = ft_add_token_back(data->token_list, command, SEMICOLON);
-	else
-		ft_print_error(data, "Invalid semicolons");
 	return (i);
 }
