@@ -2,23 +2,23 @@ UNAME = $(shell uname -s)
 
 NAME = minishell
 
-CC	=	gcc
-
-SRCS =	$(wildcard src/*.c)
+SRCS =	$(wildcard src/*/*.c)
 
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 
-FLAGS = -Wall -Wextra -Werror -lreadline
+CFLAGS = -Wall -Wextra -Werror
+
+LINK = -lreadline
 
 RM = rm -f
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS)  -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) $(LINK) -o $(NAME)
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) src/*.o
 
 fclean: clean
 	$(RM) $(NAME)

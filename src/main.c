@@ -5,6 +5,8 @@ int main(int argc, char **argv)
 	t_data data;
 	char **env;
 
+	(void)argv;
+	(void)argc;
 	data.error_status = 0;
 
 	env = malloc(sizeof(char *) * 3);
