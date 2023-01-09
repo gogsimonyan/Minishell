@@ -24,13 +24,13 @@ char *ft_find_expand_string(t_data *data, char *token_value)
         begin++;
         i++;
         len++;
-        while (token_value[i] && token_value[i] != c && !ft_is_space(token_value[i]))
+        while (token_value[i] && token_value[i] != c && !ft_is_space(token_value[i]) && token_value[i] != '"')
         {
             i++;
             len++;
         }
     }
-    if (token_value[i] == c && ft_is_space(token_value[i]))
+    if (token_value[i] == c || ft_is_space(token_value[i]) || token_value[i] == '"')
     {
         i++;
         expand_string = ft_substr(token_value, begin, len);

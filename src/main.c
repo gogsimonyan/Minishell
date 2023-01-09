@@ -1,20 +1,14 @@
 #include "minishell.h"
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char *envp[])
 {
 	t_data data;
-	char **env;
 
 	(void)argv;
 	(void)argc;
 	data.error_status = 0;
 
-	env = malloc(sizeof(char *) * 3);
-	env[0] = ft_strdup("PWD=/Users/gsimonya/Desktop/minishell");
-	env[1] = ft_strdup("_=./minishell");
-	env[2] = NULL;
-
-	ft_create_env_list(&data, env);
+	ft_create_env_list(&data, envp);
 
 	while (1)
 	{

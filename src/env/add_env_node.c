@@ -24,17 +24,18 @@ t_env *ft_add_new_env(char *value)
 t_env *ft_add_env_back(t_env *env_list, char *value)
 {
 	t_env	*node;
-	t_env	*env_list_clone;
+	t_env *env_list_duplicate;
 
 	if (!value)
 		return (NULL);
 	node = ft_add_new_env(value);
+
 	if (env_list == NULL)
 		return (node);
-	env_list_clone = env_list;
-	while (env_list_clone->next != NULL)
-		env_list_clone = env_list_clone->next;
-	env_list_clone->next = node;
-	node->prev = env_list_clone;
+	env_list_duplicate = env_list;
+	while (env_list_duplicate->next != NULL)
+		env_list_duplicate = env_list_duplicate->next;
+	env_list_duplicate->next = node;
+	node->prev = env_list_duplicate;
 	return (env_list);
 }

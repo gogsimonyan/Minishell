@@ -2,7 +2,7 @@ UNAME = $(shell uname -s)
 
 NAME = minishell
 
-SRCS =	$(wildcard src/*/*.c)
+SRCS =	$(wildcard src/*/*.c src/*.c)
 
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 
